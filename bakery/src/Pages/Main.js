@@ -1,36 +1,32 @@
-import React, { useState, useEffect }from 'react'
-import axios from 'axios';
-import RecipeCard  from '../components/RecipeCard';
-
-export default function RecipeConverter(){
-const [recipe, setRecipe] = useState([]);
+import React from 'react'
+import { useLocation } from "react-router-dom";
+import Recipes from "../components/Recipes"
+import NavSide from "../components/NavBarSide"
 
 
-  useEffect(() => {
-    axios
-      .get('http://localhost:6012/recipe')
-      .then((res) => {
-        setRecipe(res.data);
-      })
-      .catch((err) => {
-        console.log('Error from RecipeList');
-      });
-  }, []);
+export default function Main() {
+  const location = useLocation();
+  const type = location.pathname.split("/")[2]
+  console.log(type)
 
-const recipeList = 
-recipe.length == 0 ?
-'no recipes':
-recipe.map((food,k )=> <RecipeCard food={food} key={k}/> )
-
-
-    return(
-        <div className='main-content'>
-          
-            <p className='text-xl text-zinc-700'>Recipes</p>
-            <div>
-               {recipeList}
-            </div>
+  return (
+    <div className=''>
+      <div className='main-content flex'>
+        <NavSide />
+        <div className='m-8 main-body'>
+          <p className='text-4xl font-worksans font-medium	ml-2'>Recipes</p>
+          <div>
+            <Recipes type={type} />
+           
+          </div>
 
         </div>
-    )
+
+
+      </div>
+
+
+
+    </div>
+  )
 }

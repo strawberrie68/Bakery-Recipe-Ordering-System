@@ -6,7 +6,6 @@ import { fas } from '@fortawesome/free-solid-svg-icons'
 import { far } from '@fortawesome/free-regular-svg-icons'
 
 import NavBar from './components/NavBar'
-import NavSide from './components/NavBarSide'
 
 import Cart from './Pages/Cart'
 import Main from './Pages/Main'
@@ -23,13 +22,12 @@ function App() {
     <div className="App">
       <Router>
         <NavBar />
-        <div className='flex main'>
-          <NavSide />
-        </div>
+ 
 
         <Routes>
-          <Route exactpath="/" element={<Main />}/>
+          <Route exact path="/" element={<Main />}/>
           <Route path="/recipe" element={<Details />} />
+          <Route path="/recipe/:type" element={<Main />} />
           <Route path="/cart" element={<Cart />}/>
         </Routes>
       </Router>

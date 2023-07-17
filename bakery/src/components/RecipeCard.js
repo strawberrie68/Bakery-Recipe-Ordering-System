@@ -1,35 +1,45 @@
 import React from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import Tag from "./Tag"
 
 
-export default function RecipeCard(props) {
+const RecipeCard = (props) => {
 
 
     return (
-        <div className="recipe-card mt-4 rounded-lg  ">
+        <div className="recipe-card m-1 ">
 
             <div className='recipe-card-img-container'>
-                <img className="rounded-t-lg " src={props.food.image} />
-                <FontAwesomeIcon className="heart text-xl" icon="fa-solid fa-heart" style={{ color: "#e3e3e3", }} />
+                <img className=" " src={props.food.image} alt="recipe-img"/>
+                <div className='recipecard-info flex flex-col'>
+                    <div className='recipecard-info-top flex flex-row text-white m-1'>
+                        <p>See Recipe</p>
+                        <div className='recipecard-see-more '>
+                            <FontAwesomeIcon icon="fa-solid fa-chevron-right" style={{color: "#ffffff",}} size="2xs" />
+                        </div>
+
+                    </div>
+                    <div className='recipecard-info-bottom flex flex-row m-1 justify-betwen'>
+                        <Tag id="tags"/>
+
+                        <div className='heart-background'>
+                            <FontAwesomeIcon className="heart text-xl" icon="fa-regular fa-heart" />
+                        </div>
+
+                    </div>
+
+
+
+                </div>
+
+
             </div>
             <div className='p-2'>
-            <p className='text-zinc-500 text-sm'>{props.food.recipeTitle}</p>
+                <p className='text-lg font-worksans font-medium'>{props.food.recipeTitle}</p>
 
             </div>
-
-            
-            {/* <p>{`Time: ${props.food.prepTime[0].time} ${props.food.prepTime[0].timeUnit}`}</p>
-            <p>{`Servings: ${props.food.servings}`}</p>
-            <p>{`Type: ${props.food.type}`}</p>
-            <p>Ingredients:</p>
-            {props.food.ingredients.map((item, i) => (
-                <div key={i}>
-                    {item.quantity} {item.quantityType} {item.ingredient} 
-                </div>
-            ))} */}
-
-
 
         </div>
     )
 }
+export default RecipeCard
