@@ -8,26 +8,31 @@ const recipeSchema = new Schema({
         type: String,
         required: true,
     },
+    image: {
+        type: String,
+        required: true,
+    },
     servings: {
         type: Number,
         required: true,
     },
     ingredients: [{
-        quantity: {type: Number, required: false},
-        quantityType: {type: String, required: false},
+        quantity: { type: Number, required: false },
+        quantityType: { type: String, required: false },
         // ingredient: {type: mongoose.Schema.Types.ObjectId, ref: 'Ingredient'},
-        ingredient: {type: String, ref: 'Ingredient'},
+        ingredient: { type: String, ref: 'Ingredient' },
     }],
-    
-    prepTime: 
-        [{time: {type: Number, required: true},
-          timeUnit: {type: String, required: true}
+
+    prepTime:
+        [{
+            time: { type: Number, required: true },
+            timeUnit: { type: String, required: true }
         }],
-    
+
     type: {
         type: String
     },
-     tag: {
+    tag: {
         type: [String]
     },
     fav: {

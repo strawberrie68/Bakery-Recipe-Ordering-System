@@ -2,10 +2,28 @@ const router = require('express').Router();
 let Recipe = require('../models/recipes')
 let Supplier = require('../models/supplierItems')
 
-router.route('/').get((req, res) => {
-    Recipe.find()
-        .then(recipe => res.json(recipe))
-        .catch(err => res.status(400).json('Error: ' + err))
+router.get("/", async (req, res) => {
+    const qtype = req.query.category;
+    try{
+        let recipe;
+        if(qtype){
+            recipe = await Recipe.find({
+                type: {
+                    $in: [qtype],
+                }
+            })
+        }else{
+            recipe = await Recipe.find();
+        }
+        res.status(200).json(recipe)
+    }catch(err) {
+        res.status(500).json('Error: ' + err)
+    }
+    
+
+    // Recipe.find()
+    //     .then(recipe => res.json(recipe))
+    //     .catch(err => res.status(400).json('Error: ' + err))
 
 })
 
@@ -19,6 +37,7 @@ router.route('/:id').get((req, res) => {
 
 router.route('/add').post((req, res) => {
     const recipeTitle = req.body.recipeTitle;
+    const image = req.body.image;
     const servings = req.body.servings;
     const ingredients = req.body.ingredients;
     const prepTime = req.body.prepTime;
@@ -28,7 +47,7 @@ router.route('/add').post((req, res) => {
 
 
     const newRecipe = new Recipe({
-        recipeTitle, servings, ingredients, prepTime, type, tag, fav
+        recipeTitle, servings, ingredients, prepTime, type, tag, fav, image
     })
 
     newRecipe.save()
