@@ -1,38 +1,60 @@
-.App {
-  text-align: center;
-}
+/* Nav Bar  */
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+/* Top Nav Bar */
+.navbar-container {
   display: flex;
-  flex-direction: column;
+  justify-content: space-between;
+  padding: 1em;
   align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
 }
 
-.App-link {
-  color: #61dafb;
+.navbar-container img {
+  width: 15px;
+  height: 15px
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+/* side Nav Bar */
+
+.navbar-container-side {
+  width: 50px;
+  height: 100vh;
+  padding-top: 1em;
+
+
+}
+
+.navbar-container-side img {
+  width: 20px;
+  height: 20px;
+  margin: 2em 1em;
+}
+
+
+.main-content {
+  margin: 3em 2em;
+  width:auto
+}
+
+/* Recipe Card */
+
+.recipe-card {
+  width: 170px;
+  height: 170px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.25);
+
+}
+
+.recipe-card img {
+  width: 170px;
+  height: 120px;
+  object-fit: cover
+}
+.recipe-card-img-container {
+  position: relative;
+ 
+}
+.heart {
+  position: absolute;
+  left:140px;
+  bottom:5px;
 }

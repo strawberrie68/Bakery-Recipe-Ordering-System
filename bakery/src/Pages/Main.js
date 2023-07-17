@@ -1,6 +1,6 @@
 import React, { useState, useEffect }from 'react'
 import axios from 'axios';
-import RecipeCard  from './RecipeCard';
+import RecipeCard  from '../components/RecipeCard';
 
 export default function RecipeConverter(){
 const [recipe, setRecipe] = useState([]);
@@ -24,8 +24,9 @@ recipe.map((food,k )=> <RecipeCard food={food} key={k}/> )
 
 
     return(
-        <div>
-            <p>hello</p>
+        <div className='main-content'>
+          
+            <p className='text-xl text-zinc-700'>Recipes</p>
             <div>
                {recipeList}
             </div>
