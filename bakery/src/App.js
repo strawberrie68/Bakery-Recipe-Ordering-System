@@ -26,8 +26,9 @@ function App() {
 
         <Routes>
           <Route exact path="/" element={<Main />}/>
-          <Route path="/recipe" element={<Details />} />
+          {/* <Route path="/recipe" element={<Details />} /> */}
           <Route path="/recipe/:type" element={<Main />} />
+          <Route path="/recipe/detail/:id" element={<Details />} />
           <Route path="/cart" element={<Cart />}/>
         </Routes>
       </Router>

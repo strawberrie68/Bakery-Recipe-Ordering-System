@@ -7,7 +7,7 @@ import NavSide from "../components/NavBarSide"
 export default function Main() {
   const location = useLocation();
   const type = location.pathname.split("/")[2]
-  console.log(type)
+ 
 
   return (
     <div className=''>

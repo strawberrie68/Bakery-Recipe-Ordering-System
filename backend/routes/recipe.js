@@ -27,9 +27,8 @@ router.get("/", async (req, res) => {
 
 })
 
-router.route('/:id').get((req, res) => {
+router.route('/detail/:id').get((req, res) => {
     Recipe.findById(req.params.id)
-        .populate("quote")
         .then(Recipe => res.json(Recipe))
         .catch(err => res.status(404).json({ noRecipefound: 'No Recipe found' }))
 })

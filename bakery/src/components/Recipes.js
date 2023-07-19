@@ -20,32 +20,29 @@ export default function Recipes({ type }) {
     getRecipe()
   }, [type])
 
-  // console.log(recipe)
 
   useEffect(() => {
     type && setfilteredRecipes(
       recipe.filter(item =>
-          item.type === type)
+        item.type === type)
     )
   }, [recipe, type])
 
-  console.log(filteredRecipes)
 
-  
-  const recipeList = 
-  filteredRecipes.length === 0 ?
-  'no recipes':
-  filteredRecipes.map((food,k )=> <RecipeCard food={food} key={k}/> )
+  const recipeList =
+    filteredRecipes.length === 0 ?
+      'no recipes' :
+      filteredRecipes.map((food, k) => <RecipeCard food={food} key={k} />)
 
-  
+
 
   return (
     <div className="">
-    
+
       <div className="flex">
-      {recipeList}
+        {recipeList}
       </div>
-  
+
     </div>
   )
 
