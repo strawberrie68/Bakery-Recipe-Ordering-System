@@ -140,6 +140,14 @@
   
 }
 
+.main-body-main{
+  display: block;
+  margin-top: 3em;
+  width: 90vw;
+  margin-left: 2em;
+  margin-right: 2em;
+}
+
 /* Cart */
 .cart-item {
   display: grid;
@@ -159,10 +167,12 @@
   background-color: #F8F8F8;
   width: auto;
   padding:1em;
+  overflow: scroll;
 }
 
 .cart-container {
-  height: 60vh
+  height: 60vh;
+  overflow: scroll;
 }
 
 .order-container{

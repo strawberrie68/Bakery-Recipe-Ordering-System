@@ -33,35 +33,56 @@ export default function RecipeDetails() {
             });
     }, [id]);
 
-    function onChange(e) {
-        setMultiplier(e.target.value)
-        handleScaling(multiplier)
-    }
+    // function onChange(e) {
+    //     setMultiplier(e.target.value)
+    //     console.log(multiplier)
+    //     // handleScaling(multiplier)
+    // }
+    const [recipeQ, setRecipeQ] = useState(null)
+
+    useEffect(() => {
+        recipe.ingredients && setRecipeQ(
+            recipe.ingredients.map(data => {
+                return {
+                    ...data,
+                    quantity: data.quantity * multiplier,
+                }
+            }
+
+            ))
+
+    }, [multiplier]);
+    console.log(recipeQ)
+
+    useEffect(() => {
+        recipeQ &&
+
+            setScaledRecipe(prevRecipe => ({
+                ...prevRecipe,
+                ingredients: recipeQ,
+                servings: recipe.servings * multiplier
+            })
+            )
+
+    }, [recipeQ]);
 
 
 
-    function handleScaling(multiplier) {
-        const recipeQ = recipe.ingredients.map(data => {
-            return { ...data, quantity: data.quantity * multiplier }
-        })
-        setScaledRecipe(prevRecipe => ({
-            ...prevRecipe,
-            ingredients: recipeQ
-        })
-        )
-    }
 
+    console.log(multiplier)
 
-    const handleClick = () => {
+    function handleScaling() {
         dispatch(
             addProduct({ recipe, scaledRecipe, multiplier })
         )
+
     }
 
 
 
 
-    console.log(scaledRecipe)
+
+    // console.log(scaledRecipe)
 
 
 
@@ -70,7 +91,7 @@ export default function RecipeDetails() {
             <div className='main-content flex'>
                 <NavSide />
 
-                <div className='m-8 main-body'>
+                <div className='m-8 main-body-main'>
                     <p className='text-4xl font-worksans font-medium'>Recipe</p>
                     <p>{recipe.recipeTitle}</p>
                     <div>
@@ -84,7 +105,9 @@ export default function RecipeDetails() {
                             id="serving"
                             type="number"
                             placeholder='Enter servings'
-                            onChange={onChange}
+                            onChange={(e) => setMultiplier(e.target.value)}
+                            min="1" 
+                            oninput="validity.valid||(value='');"
                         />
                         <p>Servings {recipe.servings * multiplier}</p>
                     </div>
@@ -105,7 +128,7 @@ export default function RecipeDetails() {
 
 
             </div>
-            <input type="button" onClick={handleClick} value="Add to Cart" />
+            <input type="button" onClick={handleScaling} value="Add to Cart" />
 
 
 

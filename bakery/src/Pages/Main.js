@@ -13,7 +13,7 @@ export default function Main() {
     <div className=''>
       <div className='main-content flex'>
         <NavSide />
-        <div className='m-8 main-body'>
+        <div className='m-8 main-body-main'>
           <p className='text-4xl font-worksans font-medium	ml-2'>Recipes</p>
           <div>
             <Recipes type={type} />
