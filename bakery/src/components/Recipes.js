@@ -30,16 +30,17 @@ export default function Recipes({ type }) {
 
 
   const recipeList =
-    filteredRecipes.length === 0 ?
-      'no recipes' :
-      filteredRecipes.map((food, k) => <RecipeCard food={food} key={k} />)
+    !type ? recipe.map((food, k) => <RecipeCard food={food} key={k} />)
+      : filteredRecipes.length === 0
+        ? 'no recipes' :
+        filteredRecipes.map((food, k) => <RecipeCard food={food} key={k} />)
 
 
 
   return (
     <div className="">
 
-      <div className="flex">
+      <div className="recipe-container flex">
         {recipeList}
       </div>
 
