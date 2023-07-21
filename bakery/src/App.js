@@ -18,18 +18,21 @@ import {
 } from "react-router-dom"
 
 function App() {
+
   return (
     <div className="App">
       <Router>
         <NavBar />
- 
+
 
         <Routes>
-          <Route exact path="/" element={<Main />}/>
+          <Route exact path="/" element={<Main />} />
           {/* <Route path="/recipe" element={<Details />} /> */}
           <Route path="/recipe/:type" element={<Main />} />
           <Route path="/recipe/detail/:id" element={<Details />} />
-          <Route path="/cart" element={<Cart />}/>
+          <Route path="/cart" element={<Cart />} />
+          
+
         </Routes>
       </Router>
 
