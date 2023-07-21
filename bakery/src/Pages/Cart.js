@@ -24,7 +24,10 @@ export default function Cart() {
 
 
 
+    function toggleIngredients(){
+        setIsShown(prevState => !prevState)
 
+    }
 
 
     return (
@@ -52,7 +55,7 @@ export default function Cart() {
                                             <p className=" mb-2">{item.recipeTitle}</p>
                                             <div
                                                 className="flex flex-col"
-                                                onClick={() => setIsShown(!isShown)}
+                                                onClick={toggleIngredients}
 
                                             >
                                                 <div className="flex justify-start items-center	">
