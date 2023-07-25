@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom';
 
 
 export default function NavBar() {
-    const quantity = useSelector(state => state.cart.quantity)
+   
     const uniqueRecipes = Array.from(new Set(useSelector(state => state.cart.recipeID))).length
 
     return (

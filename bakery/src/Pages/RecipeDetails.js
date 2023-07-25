@@ -1,7 +1,7 @@
 
 import React, { useState, useEffect } from 'react'
 import axios from 'axios';
-import { useParams, useNavigate, useLocation } from 'react-router-dom';
+import { useParams, useLocation } from 'react-router-dom';
 
 import '../App.css';
 import NavSide from "../components/NavBarSide"
@@ -38,7 +38,7 @@ export default function RecipeDetails() {
             .catch((err) => {
                 console.log('Error from RecipeList' + err);
             });
-    }, [id]);
+    }, [id,recipeID]);
 
 
     const [recipeQ, setRecipeQ] = useState(null)
@@ -54,7 +54,7 @@ export default function RecipeDetails() {
 
             ))
 
-    }, [multiplier]);
+    }, [multiplier,recipe.ingredients]);
     
 
     useEffect(() => {
@@ -67,7 +67,7 @@ export default function RecipeDetails() {
             })
             )
 
-    }, [recipeQ]);
+    }, [recipeQ,multiplier,recipe.servings]);
 
 
 
@@ -98,7 +98,7 @@ export default function RecipeDetails() {
                         <p className='text-4xl font-worksans font-medium'>Recipe</p>
                         <p>{recipe.recipeTitle}</p>
                         <div onClick={toggle}>
-                            <img className="recipe-detail-img" src={recipe.image} />
+                            <img alt="recipe-img"className="recipe-detail-img" src={recipe.image} />
                             <div className='recipe-insights'
                                 
                             

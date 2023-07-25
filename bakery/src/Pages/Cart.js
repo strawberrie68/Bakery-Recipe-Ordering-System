@@ -45,13 +45,8 @@ export default function Cart() {
     const reducedTotal = totalPriceArray&& totalPriceArray.reduce((acc, c)=> acc +c,0)
     console.log(reducedTotal)
 
-    // useEffect(() => {
-    //     const reducedTotal = totalPriceArray.reduce((acc, c)=> acc +c)
-    // }, [totalPrice]);
 
 
-
-    // console.log(totalPriceArray.reduce((acc, c)=> acc +c))
 
     //Do i want to combine the smae recipes?
     //need to chnage the quantity methood
@@ -86,7 +81,7 @@ export default function Cart() {
 
                                 <div className="cart-item flex mb-3 items-center mr-2">
 
-                                    <img className="cart-item-img" src={item.image} />
+                                    <img alt="recipe-img" className="cart-item-img" src={item.image} />
                                     <div className="cart-text ">
                                         <div className="cart-text-left m-4">
                                             <p className=" mb-2">{item.recipeTitle}</p>
