@@ -12,7 +12,7 @@ export default function Recipes({ type }) {
       try {
         const res = await axios.get(
 
-          "http://localhost:6012/recipe")
+          "http://localhost:10000/recipe")
         setRecipe(res.data)
       } catch (err) { }
 
