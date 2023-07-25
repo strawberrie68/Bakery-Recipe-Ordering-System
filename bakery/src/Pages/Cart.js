@@ -1,20 +1,57 @@
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 import NavSide from "../components/NavBarSide"
 import { useSelector } from "react-redux"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import IngredientToggle from "../components/IngredientToggle"
+import axios from "axios"
 
 
 export default function Cart() {
     const [isShown, setIsShown] = useState(false)
+    const [supplierDB, setSupplierDB] =useState({})
     const cart = useSelector(state => state.cart)
+
+
+    useEffect(() => {
+        axios
+            .get(`http://localhost:6012/supplier`)
+            .then((res) => {
+                setSupplierDB(res.data);
+            })
+            .catch((err) => {
+                console.log('Error getting supplier database' + err);
+            });
+    }, []);
 
     const groupped = cart.allIngredients.flat()
 
     const orderList = Object.values(groupped.reduce((acc, { ingredient, quantity, quantityType }) => ((
         acc[ingredient] = acc[ingredient] || { ingredient, quantityType, quantity: 0 }).quantity += quantity, acc), {}))
 
+        console.log(orderList)
+        console.log(supplierDB)
+    const totalPriceArray =[]
 
+   const totalPrice = 
+    orderList.map( x =>{  
+        const item = supplierDB.length ? supplierDB.find(item => item.ingredient === x.ingredient): 0
+        if(item){
+           const multiplier = Math.ceil(x.quantity/item.size.quantity)
+            totalPriceArray.push(item.price * multiplier)
+        }
+
+    })
+    console.log(totalPriceArray)
+    const reducedTotal = totalPriceArray&& totalPriceArray.reduce((acc, c)=> acc +c,0)
+    console.log(reducedTotal)
+
+    // useEffect(() => {
+    //     const reducedTotal = totalPriceArray.reduce((acc, c)=> acc +c)
+    // }, [totalPrice]);
+
+
+
+    // console.log(totalPriceArray.reduce((acc, c)=> acc +c))
 
     //Do i want to combine the smae recipes?
     //need to chnage the quantity methood
@@ -65,12 +102,7 @@ export default function Cart() {
 
 
                                                 {isShown &&
-                                                    // <div className="toggle-ingredient p-2">
-                                                    //     {item.ingredients.map((ingredient) => (
-                                                    //         <p className="text-slate-300 ">{`${ingredient.quantity} ${ingredient.quantityType} ${ingredient.ingredient}`}</p>
-                                                    //     ))}
-
-                                                    // </div>
+                                              
                                                     <IngredientToggle food={item.ingredients} />
                                                     
                                                     }
@@ -126,7 +158,7 @@ export default function Cart() {
                         <hr></hr>
                         <div className="order-bottom flex mt-5 p-2 items-end	">
                             <p className="p-2">cost</p>
-                            <p className="p-2 text-3xl">$1235</p>
+                            <p className="p-2 text-3xl">${reducedTotal}</p>
                         </div>
 
                     </div>
