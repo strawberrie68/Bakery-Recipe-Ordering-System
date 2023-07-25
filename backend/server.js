@@ -13,7 +13,7 @@ const supplierRouter = require('./routes/supplier');
 
 
 const app = express();
-const port = process.env.PORT || 10000;
+const port = process.env.PORT || 6012;
 
 
 app.use(cors());
