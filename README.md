@@ -36,10 +36,15 @@ Things I would like to fix/add
 
 ## 📝 Lessons Learned:
 
-In this project, I learned some hard things are worth doing.
-In this case... redux. I'm not gonna lie, adding redux seemed like a daunting task. With the amount of boilerplate it seemed intimidating. 
+In this project, I learned some hard things are worth doing. 
+
+In this case, redux.  
+
+I'm not gonna lie...adding redux seemed like a daunting task. With the amount of boilerplate, it seemed intimidating. 
+
 I thought it would be super hard to add to a project but with the help of the redux tool kit, it was surprisingly easy. 
-It makes it so much easier to grab information from one location without prop drilling (which can be painful). 
+
+It makes it so much easier to grab information from one location without prop drilling (which can be painful). In the end struggling and with hard things can be worth it in the end. 
 
 
 ## 👩‍💻 To try the project
