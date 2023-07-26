@@ -5,7 +5,7 @@ Never spend hours checking and guessing what to order.
 
 
 
-![](https://images.unsplash.com/photo-1571942948809-74637bfc59b9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=974&q=80)
+![](https://gifyu.com/image/ScLO4)
 
 
 [Click here to see live project]([https://www.google.com](https://flour-order-system.netlify.app/))
