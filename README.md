@@ -1,4 +1,4 @@
-# 📚 Bakery to Supplier
+# 🎂 Bakery to Supplier
 
 Make it easier to convert recipes to the amount required to order.
 Never spend hours checking and guessing what to order. 
