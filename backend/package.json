@@ -11,7 +11,7 @@
   },
   "scripts": {
     "build":"npm install ",
-    "start": "node server.js"
+    "start": "npm node server.js"
   },
   "name": "backend",
   "version": "1.0.0",
