@@ -5,7 +5,7 @@ Never spend hours checking and guessing what to order.
 
 
 
-![](https://s11.gifyu.com/images/ScLO4.md.gif)
+![](Flour Bakery App.gif)
 
 
 [Click here to see live project]([https://www.google.com](https://flour-order-system.netlify.app/))
