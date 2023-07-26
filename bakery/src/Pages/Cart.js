@@ -14,7 +14,7 @@ export default function Cart() {
 
     useEffect(() => {
         axios
-            .get(`http://localhost:6012/supplier`)
+            .get(`${process.env.REACT_APP_SERVER_URL}/supplier`)
             .then((res) => {
                 setSupplierDB(res.data);
             })

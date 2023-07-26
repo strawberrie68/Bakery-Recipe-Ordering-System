@@ -30,7 +30,7 @@ export default function RecipeDetails() {
 
     useEffect((id) => {
         axios
-            .get(`http://localhost:6012/recipe/detail/${recipeID}`)
+            .get(`${process.env.REACT_APP_SERVER_URL}/${recipeID}`)
             .then((res) => {
                 setRecipe(res.data);
                 setScaledRecipe(res.data)
