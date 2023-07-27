@@ -16,6 +16,7 @@ import {
   Routes,
   Route,
 } from "react-router-dom"
+import CreateRecipe from './Pages/CreateRecipe';
 
 function App() {
 
@@ -31,6 +32,7 @@ function App() {
           <Route path="/recipe/:type" element={<Main />} />
           <Route path="/recipe/detail/:id" element={<Details />} />
           <Route path="/cart" element={<Cart />} />
+          <Route path="/create-recipe" element={<CreateRecipe />} />
           
 
         </Routes>

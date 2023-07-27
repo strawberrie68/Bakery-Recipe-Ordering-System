@@ -4,7 +4,10 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 export default function AddRecipeBox(){
 
     return(
-        <div className="create-recipe-box flex flex-col justify-center align-middle items-center">
+        <div 
+            className="create-recipe-box flex flex-col justify-center align-middle items-center"
+            
+        >
             
             
             <div className="create-recipe-icon flex flex-col justify-center align-middle items-center">

@@ -19,7 +19,6 @@ const recipeSchema = new Schema({
     ingredients: [{
         quantity: { type: Number, required: false },
         quantityType: { type: String, required: false },
-        // ingredient: {type: mongoose.Schema.Types.ObjectId, ref: 'Ingredient'},
         ingredient: { type: String, ref: 'Ingredient' },
     }],
 
