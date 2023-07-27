@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react"
 import axios from "axios"
 import RecipeCard from "./RecipeCard"
+import AddRecipeBox from "./AddRecipeBox"
 
 export default function Recipes({ type }) {
 
@@ -42,6 +43,7 @@ export default function Recipes({ type }) {
 
       <div className="recipe-container flex">
         {recipeList}
+        <AddRecipeBox />
       </div>
 
     </div>
