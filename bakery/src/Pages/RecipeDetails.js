@@ -54,7 +54,7 @@ export default function RecipeDetails() {
 
             ))
 
-    }, [multiplier,recipe.ingredients]);
+    }, [multiplier]);
     
 
     useEffect(() => {
@@ -67,7 +67,7 @@ export default function RecipeDetails() {
             })
             )
 
-    }, [recipeQ,multiplier,recipe.servings]);
+    }, [recipeQ]);
 
 
 
