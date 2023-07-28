@@ -99,96 +99,107 @@ const CreateRecipe = props => {
                     <div className='row'>
 
                         <div className='col-md-8 m-auto'>
-                            <h1 className='display-4 text-center'>Add recipe</h1>
+                            <h1 className='display-4 text-center text-2xl mt-6 mb-6'>Add Recipe</h1>
 
                             <form noValidate onSubmit={onSubmit}>
 
 
 
-                                <label htmlFor="">Recipe</label>
+                                <label htmlFor="recipeTitle">Recipe</label>
                                 <div className='form-group'>
                                     <input
                                         type='text'
                                         placeholder='Name of Recipe'
                                         name='recipeTitle'
-                                        className='form-control'
+                                        className='form-control mt-1'
                                         value={recipe.recipeTitle}
                                         onChange={onChange}
                                     />
                                 </div>
 
+                                <label htmlFor="recipe-image">Image</label>
                                 <div className='form-group'>
                                     <input
                                         type='text'
-                                        placeholder='Recipe Timage'
+                                        placeholder='Image'
                                         name='image'
-                                        className='form-control'
+                                        className='form-control mt-1'
                                         value={recipe.image}
                                         onChange={onChange}
                                     />
                                 </div>
 
+                                <label htmlFor="recipe-servings">Servings</label>
                                 <div className='form-group'>
                                     <input
                                         type='number'
                                         placeholder='Number of Servings'
                                         name='servings'
-                                        className='form-control'
+                                        className='form-control mt-1'
                                         value={recipe.servings}
                                         onChange={onChange}
                                     />
                                 </div>
-                                <div className="flex">
-                                    <label htmlFor='ingredients'>Ingredients</label>
+                                <div className="flex flex-col">
+                                    <label className="mb-1" htmlFor='ingredients'>Ingredients</label>
+                                    <div className="flex flex-row ">
+                                        <div>
+                                            < label htmlFor='ingredients-qty'>Qty</label>
+                                            <div className='form-group'>
+                                                <input
+                                                    id="ingredients-qty"
+                                                    type='number'
+                                                    placeholder='qty'
+                                                    name='quantity'
+                                                    className='form-control mr-1'
+                                                    value={recipe.ingredients.quantity}
+                                                    onChange={onChange}
+                                                />
+                                            </div>
 
-                                    <div className='form-group'>
-                                        <input
-                                            id="ingredients-qty"
-                                            type='number'
-                                            placeholder='qty'
-                                            name='quantity'
-                                            className='form-control'
-                                            value={recipe.ingredients.quantity}
-                                            onChange={onChange}
-                                        />
-                                    </div>
-                                    <div className='form-group'>
-                                        <input
-                                            id="ingredients-qtyType"
-                                            type='text'
-                                            placeholder='unit'
-                                            name='quantityType'
-                                            className='form-control'
-                                            value={recipe.ingredients.quantityType}
-                                            onChange={onChange}
-                                        />
-                                    </div>
-                                    <div className='form-group'>
-                                        <input
+                                        </div>
+                                        <div >
+                                            < label htmlFor='ingredients-qtyUnit'>Unit</label>
+                                            <div className='form-group'>
+                                                <input
+                                                    id="ingredients-qtyType"
+                                                    type='text'
+                                                    placeholder='grams'
+                                                    name='quantityType'
+                                                    className='form-control mr-1'
+                                                    value={recipe.ingredients.quantityType}
+                                                    onChange={onChange}
+                                                />
+                                            </div>
 
-                                            type='text'
-                                            placeholder='unit'
-                                            name='quantityType'
-                                            className='form-control'
-                                            value={recipe.ingredients.quantityType}
-                                            onChange={onChange}
-                                        />
-                                    </div>
-                                    <div className='form-group'>
-                                        <input
+                                        </div>
+                                        <div>
+                                        <div className='form-group'>
+                                                < label htmlFor='ingredients-qtyUnit'>Ingredient</label>
+                                                <input
 
-                                            type='text'
-                                            placeholder='unit'
-                                            name='quantityType'
-                                            className='form-control'
-                                            value={recipe.ingredients.ingredient}
-                                            onChange={onChange}
-                                        />
-                                    </div>
+                                                    type='text'
+                                                    placeholder='Ingredient'
+                                                    name='ingredient'
+                                                    className='form-control mr-1'
+                                                    value={recipe.ingredients.ingredient}
+                                                    onChange={onChange}
+                                                />
+                                            </div>
 
+                                        </div>
+
+                                        
+
+
+                                    </div>
                                 </div>
-                                <div className="flex">
+
+                                <div className="flex flex-col">
+                                    < label htmlFor='ingredients-preptime'>PrepTime</label>
+                                    <div className="flex mt-1">
                                     <div className='form-group'>
+                                        
                                         <input
                                             type='number'
                                             placeholder='time'
@@ -209,11 +220,14 @@ const CreateRecipe = props => {
                                         />
                                     </div>
 
+                                    </div>
+                                  
+
                                 </div>
 
                                 <label htmlFor="recipe-type">Type</label>
 
-                                <div>
+                                <div className="mt-1"> 
                                     <p id="recipe-type" >
                                         <label><input type="checkbox" name="type" value="sauce" /><span>sauce</span></label>
                                         <label><input type="checkbox" name="type" value="cake" /><span>cake</span></label>
@@ -222,16 +236,17 @@ const CreateRecipe = props => {
 
                                     </p>
                                 </div>
-                                <div className='form-group'>
-                                        <input
-                                            type='text'
-                                            placeholder='tag'
-                                            name='tag'
-                                            className='form-control'
-                                            value={recipe.tag}
-                                            onChange={onChange}
-                                        />
-                                    </div>
+                                <div className='form-group flex flex-col'>
+                                    < label htmlFor='recipe-tag'>Tag</label>
+                                    <input
+                                        type='text'
+                                        placeholder='tag'
+                                        name='tag'
+                                        className='form-control mt-1'
+                                        value={recipe.tag}
+                                        onChange={onChange}
+                                    />
+                                </div>
                                 <div className='flex align-middle items-center my-4'>
                                     <div className='form-group'>
                                         <input
@@ -243,7 +258,7 @@ const CreateRecipe = props => {
                                             onChange={onChange}
                                         />
                                     </div>
-                                    <label htmlFor='fav' className='mx-4 '> Would you like to study this recipe? </label>
+                                    <label htmlFor='fav' className='mx-4 '> Would you like to favorite it ? </label>
                                 </div>
 
 
