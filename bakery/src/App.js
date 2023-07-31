@@ -10,6 +10,7 @@ import NavBar from './components/NavBar'
 import Cart from './Pages/Cart'
 import Main from './Pages/Main'
 import Details from './Pages/RecipeDetails'
+import CreateRecipe2 from './Pages/CreateRecipe2';
 
 import {
   BrowserRouter as Router,
@@ -33,6 +34,7 @@ function App() {
           <Route path="/recipe/detail/:id" element={<Details />} />
           <Route path="/cart" element={<Cart />} />
           <Route path="/create-recipe" element={<CreateRecipe />} />
+          <Route path="/create-recipe2" element={<CreateRecipe2 />} />
           
 
         </Routes>

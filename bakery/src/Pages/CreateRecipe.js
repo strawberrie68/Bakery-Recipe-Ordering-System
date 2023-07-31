@@ -1,8 +1,11 @@
 import React, { useState } from "react"
+import { useForm } from "react-hook-form"
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+
 
 const CreateRecipe = props => {
 
@@ -14,7 +17,7 @@ const CreateRecipe = props => {
             quantity: '',
             quantityType: '',
             ingredient: ''
-        },
+        } ,
         prepTime: {
             time: '',
             timeUnit: ''
@@ -25,70 +28,141 @@ const CreateRecipe = props => {
 
     });
 
+
+    const [ingredientArray, setIngredientArray] = useState([
+        { ingredients: {
+            quantity: '',
+            quantityType: '',
+            ingredient: ''
+        }}
+])
+
+
+
+console.log(ingredientArray)
+
+
+
+
+    const handleIngredientAdd = () => {
+        setIngredientArray([ ...ingredientArray, { ingredients: {
+            quantity: '',
+            quantityType: '',
+            ingredient: ''
+
+        } }])
+    }
+
+    const handleIngredientRemove = (index) => {
+        const Array = [...ingredientArray];
+        Array.splice(index, 1)
+        setIngredientArray(Array)
+
+    }
+    // const onChange = (event) => {
+    //     const { name, value } = event.target
+
+        
+    //         setIngredientArray(prevArray => {
+    //             const newArray = {...prevArray}
+    //             if(name === "quantity" || name === "quantityUnit"){
+    //                 newArray.ingredients[name] = value
+    //                 return newArray
+    //             }
+                
+    //         }
+             
+    //         )
+        
+
+    // }
+
+
     const onChange = (event) => {
         const { name, value, type, checked } = event.target
-        setRecipe(prevRecipe => {
-            return {
-                ...prevRecipe,
-                [name]: type === "checkbox" ? checked : value
-
+        if(name === "recipeTitle" || name === "image" || name=== "type" || name === "tag" || name == "fav" || name === "servings"){
+            setRecipe(prevRecipe => {
+                return {
+                    ...prevRecipe,
+                    [name]: type === "checkbox" ? checked : value
+    
+                }
+            })
+        }
+        if(name === "time" || name === "timeUnit"){
+            setRecipe(prevRecipe => {
+                const newRecipe = {...prevRecipe}
+                newRecipe.prepTime[name] = value
+                return newRecipe
             }
-        })
+             
+            )
+        }
+        if(name === "ingredients"){
+            setRecipe(prevRecipe => {
+                return {
+                    ...prevRecipe,
+                    ingredients: ingredientArray
+                }
+            })
+        }
+        
+
     };
 
     const onSubmit = (event) => {
         event.preventDefault();
         console.log(recipe)
 
-        axios
-            .post(`${process.env.REACT_APP_SERVER_URL}/recipe/add`, recipe)
-            .then((res) => {
-                setRecipe({
-                    recipeTitle: '',
-                    image: '',
-                    servings: '',
-                    ingredients: {
-                        quantity: '',
-                        quantityType: '',
-                        ingredient: ''
-                    },
-                    prepTime: {
-                        time: '',
-                        timeUnit: ''
-                    },
-                    type: '',
-                    tag: '',
-                    fav: false
+        // axios
+        //     .post(`${process.env.REACT_APP_SERVER_URL}/recipe/add`, recipe)
+        //     .then((res) => {
+        //         setRecipe({
+        //             recipeTitle: '',
+        //             image: '',
+        //             servings: '',
+        //             ingredients: {
+        //                 quantity: '',
+        //                 quantityType: '',
+        //                 ingredient: ''
+        //             },
+        //             prepTime: {
+        //                 time: '',
+        //                 timeUnit: ''
+        //             },
+        //             type: '',
+        //             tag: '',
+        //             fav: false
 
-                });
-
-
-                toast('Recipe Created', {
-                    position: "top-right",
-                    autoClose: 2000,
-                    hideProgressBar: true,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                    draggable: true,
-                    progress: undefined,
-                    theme: "light",
-                });
+        //         });
 
 
-            })
-            .catch((err) => {
-                console.log('Error in Create Recipe!');
-                toast.error('Recipe was not created', {
-                    position: "top-right",
-                    autoClose: 2000,
-                    hideProgressBar: true,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                    draggable: true,
-                    progress: undefined,
-                    theme: "light",
-                });
-            });
+        //         toast('Recipe Created', {
+        //             position: "top-right",
+        //             autoClose: 2000,
+        //             hideProgressBar: true,
+        //             closeOnClick: true,
+        //             pauseOnHover: true,
+        //             draggable: true,
+        //             progress: undefined,
+        //             theme: "light",
+        //         });
+
+
+        //     })
+        //     .catch((err) => {
+        //         console.log('Error in Create Recipe!');
+        //         toast.error('Recipe was not created', {
+        //             position: "top-right",
+        //             autoClose: 2000,
+        //             hideProgressBar: true,
+        //             closeOnClick: true,
+        //             pauseOnHover: true,
+        //             draggable: true,
+        //             progress: undefined,
+        //             theme: "light",
+        //         });
+        //     });
     };
 
 
@@ -99,17 +173,18 @@ const CreateRecipe = props => {
                     <div className='row'>
 
                         <div className='col-md-8 m-auto'>
-                            <h1 className='display-4 text-center text-2xl mt-6 mb-6'>Add Recipe</h1>
+                            <h1 className='display-4 font-medium font-worksans text-4xl mt-10 mb-2'>Add Recipe</h1>
+                            <p className="text-slate-400 mb-10">Create new recipes here. Please enter the details</p>
 
                             <form noValidate onSubmit={onSubmit}>
 
 
 
-                                <label htmlFor="recipeTitle">Recipe</label>
-                                <div className='form-group'>
+                                <label htmlFor="recipeTitle">Name</label>
+                                <div className='form-group mb-3'>
                                     <input
                                         type='text'
-                                        placeholder='Name of Recipe'
+                                        placeholder='Durian Mochi'
                                         name='recipeTitle'
                                         className='form-control mt-1'
                                         value={recipe.recipeTitle}
@@ -118,10 +193,10 @@ const CreateRecipe = props => {
                                 </div>
 
                                 <label htmlFor="recipe-image">Image</label>
-                                <div className='form-group'>
+                                <div className='form-group mb-3'>
                                     <input
                                         type='text'
-                                        placeholder='Image'
+                                        placeholder='unsplash.com/durian-mochi'
                                         name='image'
                                         className='form-control mt-1'
                                         value={recipe.image}
@@ -130,7 +205,7 @@ const CreateRecipe = props => {
                                 </div>
 
                                 <label htmlFor="recipe-servings">Servings</label>
-                                <div className='form-group'>
+                                <div className='form-group mb-3'>
                                     <input
                                         type='number'
                                         placeholder='Number of Servings'
@@ -140,94 +215,107 @@ const CreateRecipe = props => {
                                         onChange={onChange}
                                     />
                                 </div>
-                                <div className="flex flex-col">
+                                <div className="flex flex-col mb-3">
                                     <label className="mb-1" htmlFor='ingredients'>Ingredients</label>
-                                    <div className="flex flex-row ">
-                                        <div>
-                                            < label htmlFor='ingredients-qty'>Qty</label>
-                                            <div className='form-group'>
-                                                <input
-                                                    id="ingredients-qty"
-                                                    type='number'
-                                                    placeholder='qty'
-                                                    name='quantity'
-                                                    className='form-control mr-1'
-                                                    value={recipe.ingredients.quantity}
-                                                    onChange={onChange}
-                                                />
+                                    { ingredientArray && ingredientArray.map((item, index) =>(
+                                        <div key={index} className="ingredients-create-container mb-1">
+                                            <div>
+                                               { index === 0 && < label htmlFor='ingredients-qty'>Qty</label>}
+                                                <div className='form-group'>
+                                                    <input
+                                                        id="ingredients-qty"
+                                                        type='number'
+                                                        placeholder='1000'
+                                                        name='quantity'
+                                                        className='form-control mr-1'
+                                                        value="quantity"
+                                                        onChange={onChange}
+                                                    />
+                                                </div>
+
+                                            </div>
+                                            <div >
+                                                { index === 0 && < label htmlFor='ingredients-qtyUnit'>Unit</label>}
+                                                <div className='form-group'>
+                                                    <input
+                                                        id="ingredients-qtyType"
+                                                        type='text'
+                                                        placeholder='g'
+                                                        name='quantityType'
+                                                        className='form-control mr-1'
+                                                        value="quantityType"
+                                                        onChange={onChange}
+                                                    />
+                                                </div>
+
+                                            </div>
+                                            <div>
+                                                <div className='form-group'>
+                                                    { index === 0 && <label className="" htmlFor='ingredients-qtyUnit'>Ingredient</label>}
+                                                    <input
+
+                                                        type='text'
+                                                        placeholder='Durian'
+                                                        name='ingredient'
+                                                        className='form-control mr-1 '
+                                                        value="ingredient"
+                                                        onChange={onChange}
+                                                    />
+                                                </div>
+
+                                            </div>
+                                            <div>
+                                            {index===0 && <label>no</label>}
+                                                <div 
+                                                    className="add-ingredient-button flex justify-center items-center"
+                                                    onClick={handleIngredientAdd}
+                                                >
+                                            
+                                                < FontAwesomeIcon icon="fa-solid fa-plus" style={{color: "#5e5e5e",}} />
+                                                </div>
+
                                             </div>
 
-                                        </div>
-                                        <div >
-                                            < label htmlFor='ingredients-qtyUnit'>Unit</label>
-                                            <div className='form-group'>
-                                                <input
-                                                    id="ingredients-qtyType"
-                                                    type='text'
-                                                    placeholder='grams'
-                                                    name='quantityType'
-                                                    className='form-control mr-1'
-                                                    value={recipe.ingredients.quantityType}
-                                                    onChange={onChange}
-                                                />
-                                            </div>
-
-                                        </div>
-                                        <div>
-                                        <div className='form-group'>
-                                                < label htmlFor='ingredients-qtyUnit'>Ingredient</label>
-                                                <input
-
-                                                    type='text'
-                                                    placeholder='Ingredient'
-                                                    name='ingredient'
-                                                    className='form-control mr-1'
-                                                    value={recipe.ingredients.ingredient}
-                                                    onChange={onChange}
-                                                />
-                                            </div>
 
                                         </div>
 
-                                        
+                                    ) ) }
 
-
-                                    </div>
                                 </div>
 
-                                <div className="flex flex-col">
-                                    < label htmlFor='ingredients-preptime'>PrepTime</label>
+                                <div className="flex flex-col mb-3">
+                                    < label htmlFor='ingredients-preptime'>Prep Time</label>
                                     <div className="flex mt-1">
-                                    <div className='form-group'>
-                                        
-                                        <input
-                                            type='number'
-                                            placeholder='time'
-                                            name='time'
-                                            className='form-control'
-                                            value={recipe.prepTime.time}
-                                            onChange={onChange}
-                                        />
-                                    </div>
-                                    <div className='form-group'>
-                                        <input
-                                            type='text'
-                                            placeholder='time unit'
-                                            name='timeUnit'
-                                            className='form-control'
-                                            value={recipe.prepTime.timeUnit}
-                                            onChange={onChange}
-                                        />
-                                    </div>
+                                        <div className='form-group'>
+
+                                            <input
+                                                type='number'
+                                                placeholder='time'
+                                                name='time'
+                                                className='form-control'
+                                                value={recipe.time}
+                                                onChange={onChange}
+                                            />
+                                        </div>
+                                        <div className='form-group'>
+                                            <input
+                                                type='text'
+                                                placeholder='time unit'
+                                                name='timeUnit'
+                                                className='form-control'
+                                                value={recipe.timeUnit}
+                                                onChange={onChange}
+                                            />
+                                        </div>
 
                                     </div>
-                                  
+
 
                                 </div>
 
                                 <label htmlFor="recipe-type">Type</label>
 
-                                <div className="mt-1"> 
+                                <div className="mt-1 mb-3">
                                     <p id="recipe-type" >
                                         <label><input type="checkbox" name="type" value="sauce" /><span>sauce</span></label>
                                         <label><input type="checkbox" name="type" value="cake" /><span>cake</span></label>
@@ -247,7 +335,7 @@ const CreateRecipe = props => {
                                         onChange={onChange}
                                     />
                                 </div>
-                                <div className='flex align-middle items-center my-4'>
+                                <div className='flex align-middle items-center '>
                                     <div className='form-group'>
                                         <input
                                             id='fav'
@@ -264,7 +352,7 @@ const CreateRecipe = props => {
 
                                 <input
                                     type='submit'
-                                    className='btn btn-outline-warning btn-block mt-4'
+                                    className='btn btn-outline-warning btn-block mt-4 submit'
                                 />
                             </form>
                         </div>

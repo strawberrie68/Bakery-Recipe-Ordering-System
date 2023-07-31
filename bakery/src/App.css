@@ -533,31 +533,37 @@
 .CreateRecipe-page{
   display: flex;
   justify-content: center;
-  width:70%;
+  width:100%;
   justify-items: center;
   margin: auto;
-  max-width: 400px;
+  max-width: 450px;
+  padding-bottom: 5em;
+  padding-top: 3em;
+
 }
-.CreateRecipe-page form {
-  padding: 1em;
-}
+
 .CreateRecipe-page label{
-  color: rgba(7, 13, 30, 0.655);
-  font-weight: 800;
+  color: rgba(9, 21, 53, 0.754);
+  font-weight: 600;
   font-size: small;
 }
 
 .CreateRecipe-page input {
-  border: 1px solid rgba(113, 124, 129, 0.183);
-  border-radius: 5px;
+  border: 1px solid rgba(113, 124, 129, 0.296);
+  border-radius: 8px;
   padding:3px 1em;
   margin-bottom: 5px;
   width: 100%;
-  height: 35px;
-  box-shadow: 0px 2px 2px rgba(61, 61, 61, 0.083);
+  height: 45px;
+  box-shadow: 0px 1px 1px rgba(112, 108, 108, 0.083);
   color:rgba(7, 13, 30, 0.655);
   
   
+}
+.CreateRecipe-page input.submit{
+  background-color: black;
+  color:white;
+  font-weight: 500;
 }
 
 #recipe-type input[type="checkbox"] {
@@ -568,19 +574,44 @@
   margin: 2px;
   display: inline-block;
   font-size: 1em;
-  padding: 2px 5px;
-  border: 2px solid rgba(215, 232, 246, 0.76);
-  border-radius: 10px;
-  color: rgba(153, 198, 234, 0.76);
-  background-color: rgba(215, 232, 246, 0.336);
+  padding: 3px 6px;
+  border-radius: 5px;
+  background-color: rgba(158, 155, 155, 0.114);
+  color: rgba(155, 153, 153, 0.339);
+  border: none;
+  
+
 }
 
 #recipe-type input[type="checkbox"]:checked + span {
-  background-color: rgba(44, 126, 193, 0.336);
-  color: rgb(255, 255, 255);
+  color: rgb(94, 94, 94);
+  border: 1px solid rgba(0, 0, 0, 0.126);
+  background-color: rgba(255, 255, 255, 0.156);
+  box-shadow: 0px 2px 5px rgba(175, 198, 207, 0.445);
   
 }
 
 .CreateRecipe-container {
   max-width: 400px;
+}
+
+.ingredients-create-container {
+  display: grid;
+  grid-template-columns: 1.5fr .75fr 3fr .25fr;
+  column-gap: .5em;
+  grid-template-rows: auto;
+}
+
+
+.add-ingredient-button{
+  border: 1px solid rgba(113, 124, 129, 0.296);
+  border-radius: 8px;
+  padding:3px 1em;
+  margin-bottom: 5px;
+  width: 100%;
+  height: 40px;
+  box-shadow: 0px 2px 5px rgba(175, 198, 207, 0.445);
+  color:rgba(7, 13, 30, 0.655);
+  
+
 }
