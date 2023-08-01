@@ -28,8 +28,8 @@ const recipeSchema = new Schema({
             timeUnit: { type: String, required: true }
         }],
 
-    type: {
-        type: String
+    category: {
+        type: [String]
     },
     tag: {
         type: [String]

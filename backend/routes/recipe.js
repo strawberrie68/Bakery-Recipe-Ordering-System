@@ -8,7 +8,7 @@ router.get("/", async (req, res) => {
         let recipe;
         if(qtype){
             recipe = await Recipe.find({
-                type: {
+                category: {
                     $in: [qtype],
                 }
             })
@@ -36,13 +36,13 @@ router.route('/add').post((req, res) => {
     const servings = req.body.servings;
     const ingredients = req.body.ingredients;
     const prepTime = req.body.prepTime;
-    const type = req.body.type;
+    const category = req.body.category;
     const tag = req.body.tag;
     const fav = req.body.fav
 
 
     const newRecipe = new Recipe({
-        recipeTitle, servings, ingredients, prepTime, type, tag, fav, image
+        recipeTitle, servings, ingredients, prepTime, category, tag, fav, image
     })
 
     newRecipe.save()

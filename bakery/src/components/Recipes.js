@@ -2,8 +2,9 @@ import React, { useState, useEffect } from "react"
 import axios from "axios"
 import RecipeCard from "./RecipeCard"
 import AddRecipeBox from "./AddRecipeBox"
+import { Link } from 'react-router-dom';
 
-export default function Recipes({ type }) {
+export default function Recipes({ category }) {
 
   const [recipe, setRecipe] = useState([])
   const [filteredRecipes, setfilteredRecipes] = useState([])
@@ -19,19 +20,22 @@ export default function Recipes({ type }) {
 
     }
     getRecipe()
-  }, [type])
+  }, [category])
+  
+
+ 
 
 
   useEffect(() => {
-    type && setfilteredRecipes(
+    category && setfilteredRecipes(
       recipe.filter(item =>
-        item.type === type)
+        item.category === category)
     )
-  }, [recipe, type])
+  }, [recipe, category])
 
 
   const recipeList =
-    !type ? recipe.map((food, k) => <RecipeCard food={food} key={k} />)
+    !category ? recipe.map((food, k) => <RecipeCard food={food} key={k} />)
       : filteredRecipes.length === 0
         ? 'no recipes' :
         filteredRecipes.map((food, k) => <RecipeCard food={food} key={k} />)
@@ -43,7 +47,10 @@ export default function Recipes({ type }) {
 
       <div className="recipe-container flex">
         {recipeList}
-        <AddRecipeBox />
+        <Link to="/create-recipe">
+            <AddRecipeBox />
+        </Link>
+       
       </div>
 
     </div>

@@ -548,6 +548,10 @@
   font-size: small;
 }
 
+.CreateRecipe-page #ingredient-label{
+    color: rgba(44, 56, 89, 0.542);
+}
+
 .CreateRecipe-page input {
   border: 1px solid rgba(113, 124, 129, 0.296);
   border-radius: 8px;
@@ -603,6 +607,15 @@
 }
 
 
+.ingredients-create-container-3col {
+
+  display: grid;
+  grid-template-columns: 1.5fr .75fr 3.25fr;
+  column-gap: .5em;
+  grid-template-rows: auto;
+}
+
+
 .add-ingredient-button{
   border: 1px solid rgba(113, 124, 129, 0.296);
   border-radius: 8px;
@@ -614,4 +627,10 @@
   color:rgba(7, 13, 30, 0.655);
   
 
+}
+
+.ingredient-filler{
+  width: 20px;
+  height: auto;
+  margin-top: 1.5em;
 }

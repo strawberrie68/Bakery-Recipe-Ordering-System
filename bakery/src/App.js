@@ -30,11 +30,10 @@ function App() {
         <Routes>
           <Route exact path="/" element={<Main />} />
           {/* <Route path="/recipe" element={<Details />} /> */}
-          <Route path="/recipe/:type" element={<Main />} />
+          <Route path="/recipe/:category" element={<Main />} />
           <Route path="/recipe/detail/:id" element={<Details />} />
           <Route path="/cart" element={<Cart />} />
-          <Route path="/create-recipe" element={<CreateRecipe />} />
-          <Route path="/create-recipe2" element={<CreateRecipe2 />} />
+          <Route path="/create-recipe" element={<CreateRecipe2 />} />
           
 
         </Routes>

@@ -7,9 +7,8 @@ import NavSide from "../components/NavBarSide"
 
 export default function Main() {
   const location = useLocation();
-  const type = location.pathname.split("/")[2]
-  console.log(type)
-
+  const category = location.pathname.split("/")[2]
+  
 
   return (
     <div className=''>
@@ -18,7 +17,7 @@ export default function Main() {
         <div className='m-8 main-body-main'>
           <p className='text-4xl font-worksans font-medium	ml-2'>Recipes</p>
           <div>
-            <Recipes type={type} />
+            <Recipes category={category} />
    
           </div>
          

@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
 import { useForm, useFieldArray } from "react-hook-form"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Link } from 'react-router-dom';
@@ -10,7 +10,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { DevTool } from "@hookform/devtools"
 
 
-const types = [
+const category = [
     { values: "sauce", label: "sauce" },
     { values: "cake", label: "cake" },
     { values: "sweets", label: "sweets" },
@@ -24,11 +24,12 @@ const CreateRecipe = props => {
 
 
     const form = useForm();
-    const { 
-        register, 
-        control, 
-        handleSubmit, 
-        formState: { errors } 
+    const {
+        register,
+        control,
+        handleSubmit,
+        formState,
+        reset,
     } = useForm({
         defaultValues: {
             recipeTitle: '',
@@ -38,118 +39,74 @@ const CreateRecipe = props => {
                 quantity: '',
                 quantityType: '',
                 ingredient: ''
-            }] ,
+            }],
             prepTime: {
                 time: '',
                 timeUnit: ''
             },
-            type: '',
+            category: [],
             tag: '',
             fav: false,
         }
 
     })
 
-    const { fields,append, remove } = useFieldArray({
+   
+
+    const { fields, append, remove } = useFieldArray({
         name: "ingredients",
         control
     })
 
+    const { errors, isSubmitting, isSubmitted, isSubmitSuccessful } = formState
 
-
-    const [ingredientArray, setIngredientArray] = useState([
-        {
-            ingredients: {
-                quantity: '',
-                quantityType: '',
-                ingredient: ''
-            }
+    useEffect(()=>{
+        if(isSubmitSuccessful){
+            reset()
         }
-    ])
+    },[isSubmitSuccessful,reset])
 
 
 
-    console.log(ingredientArray)
-
-
-
-
-    const handleIngredientAdd = () => {
-        setIngredientArray([...ingredientArray, {
-            ingredients: {
-                quantity: '',
-                quantityType: '',
-                ingredient: ''
-
-            }
-        }])
-    }
-
-    const handleIngredientRemove = (index) => {
-        const Array = [...ingredientArray];
-        Array.splice(index, 1)
-        setIngredientArray(Array)
-
-    }
-
-
-
-
-
-    const onSubmit = (data) => {
+    const onSubmit = async (data) => {
         // event.preventDefault();
         console.log(data)
 
 
-        // axios
-        //     .post(`${process.env.REACT_APP_SERVER_URL}/recipe/add`, recipe)
-        //     .then((res) => {
-        //         setRecipe({
-        //             recipeTitle: '',
-        //             image: '',
-        //             servings: '',
-        //             ingredients: {
-        //                 quantity: '',
-        //                 quantityType: '',
-        //                 ingredient: ''
-        //             },
-        //             prepTime: {
-        //                 time: '',
-        //                 timeUnit: ''
-        //             },
-        //             type: '',
-        //             tag: '',
-        //             fav: false
+        try{
+            const saved = await axios.post(`${process.env.REACT_APP_SERVER_URL}/recipe/add`, data)
 
-        //         });
+            toast('Recipe Created', {
+                position: "top-right",
+                autoClose: 2000,
+                hideProgressBar: true,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+            });
+            
+        }catch(err) {
+            console.log(err)
+            
+            toast.error('Recipe was not created', {
+                position: "top-right",
+                autoClose: 2000,
+                hideProgressBar: true,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+            });
+        }
+    
+        
 
+            
 
-        //         toast('Recipe Created', {
-        //             position: "top-right",
-        //             autoClose: 2000,
-        //             hideProgressBar: true,
-        //             closeOnClick: true,
-        //             pauseOnHover: true,
-        //             draggable: true,
-        //             progress: undefined,
-        //             theme: "light",
-        //         });
-
-
-        //     })
-        //     .catch((err) => {
-        //         console.log('Error in Create Recipe!');
-        //         toast.error('Recipe was not created', {
-        //             position: "top-right",
-        //             autoClose: 2000,
-        //             hideProgressBar: true,
-        //             closeOnClick: true,
-        //             pauseOnHover: true,
-        //             draggable: true,
-        //             progress: undefined,
-        //             theme: "light",
-        //         });
-        //     });
+        
     };
 
 
@@ -174,10 +131,14 @@ const CreateRecipe = props => {
                                         name="recipeTitle"
                                         className='form-control mt-1'
                                         {...register("recipeTitle", {
-                                            required: "Recipe name is required"
-                                        })}
+                                            required: {
+                                                value: true,
+                                                message: "Recipe name is required"
+                                        },
+                                    })}
                                     />
                                 </div>
+                                <p>{errors.recipeTitle?.message}</p>
 
                                 <label htmlFor="recipe-image">Image</label>
                                 <div className='form-group mb-3'>
@@ -186,9 +147,15 @@ const CreateRecipe = props => {
                                         name="image"
                                         placeholder='unsplash.com/durian-mochi'
                                         className='form-control mt-1'
-                                        {...register("image")}
+                                        {...register("image",{
+                                            required: {
+                                                value: true,
+                                                message: "Image required"
+                                            }        
+                                        })}
                                     />
                                 </div>
+                                <p>{errors.image?.message}</p>
 
                                 <label htmlFor="recipe-servings">Servings</label>
                                 <div className='form-group mb-3'>
@@ -197,83 +164,112 @@ const CreateRecipe = props => {
                                         placeholder='Number of Servings'
                                         name='servings'
                                         className='form-control mt-1'
-                                        {...register("servings")}
+                                        {...register("servings",{
+                                            required: {
+                                                value: true,
+                                                message: "Serving Number Required"
+                                            } 
+                                        })}
                                     />
                                 </div>
+                                <p>{errors.servings?.message}</p>
                                 <div className="flex flex-col mb-3">
                                     <label className="mb-1" htmlFor='ingredients'>Ingredients</label>
-                                 
+
 
                                     {
                                         fields.map((field, index) => {
-                                            return(
+                                            return (
 
-                                            <div className="ingredients-create-container mb-1" key={field.id}>
+                                                <div className="" key={field.id}>
 
-                                              
+                                                    <div className={`${fields.length === 1 ? "ingredients-create-container-3col" : "ingredients-create-container" } mb-1`}>
 
-                                                <div>
-                                                {index === 0 && < label htmlFor='ingredients-qty'>Qty</label>}
-                                                    
-                                                    <div className='form-group'>
-                                                        <input
-                                                            id="ingredients-qty"
-                                                            type='number'
-                                                            placeholder='1000'
-                                                
-                                                            className='form-control mr-1'
-                                                            {...register(`ingredients.${index}.quantity`)}
-                                                           
-                                                        />
+                                                        <div>
+                                                            {index === 0 && < label id="ingredient-label" htmlFor='ingredients-qty'>Qty</label>}
+
+                                                            <div className='form-group'>
+                                                                <input
+                                                                    id="ingredients-qty"
+                                                                    type='number'
+                                                                    placeholder='1000'
+
+                                                                    className='form-control mr-1'
+                                                                    {...register(`ingredients.${index}.quantity`)}
+
+                                                                />
+                                                            </div>
+
+                                                        </div>
+                                                        <div >
+                                                            {index === 0 && < label id="ingredient-label" htmlFor='ingredients-qtyUnit'>Unit</label>}
+                                                            <div className='form-group'>
+                                                                <input
+                                                                    id="ingredients-qtyType"
+                                                                    type='text'
+                                                                    placeholder='g'
+
+                                                                    className='form-control mr-1'
+                                                                    {...register(`ingredients.${index}.quantityType`)}
+
+                                                                />
+                                                            </div>
+
+                                                        </div>
+                                                        <div>
+                                                            <div className='form-group'>
+                                                                {index === 0 && <label id="ingredient-label" htmlFor='ingredients-qtyUnit'>Ingredient</label>}
+                                                                <input
+
+                                                                    type='text'
+                                                                    placeholder='Durian'
+                                                                    className='form-control mr-1 '
+                                                                    {...register(`ingredients.${index}.ingredient`)}
+                                                                />
+                                                            </div>
+
+                                                        </div>
+
+                                                        {fields.length > 1 &&
+                                                            <div 
+                                                                onClick={() => remove(index)}
+                                                                
+                                                            >
+                                                                {index === 0 && <div className="ingredient-filler"></div>}
+                                                                <div className="add-ingredient-button flex justify-center items-center hover:bg-red-300">
+
+                                                                    <FontAwesomeIcon icon="fa-solid fa-xmark" style={{ color: "#5e5e5e", }} />
+                                                                </div>
+
+                                                            </div>}
+
+
                                                     </div>
 
-                                                </div>
-                                                <div >
-                                                    {index === 0 && < label htmlFor='ingredients-qtyUnit'>Unit</label>}
-                                                    <div className='form-group'>
-                                                        <input
-                                                            id="ingredients-qtyType"
-                                                            type='text'
-                                                            placeholder='g'
-                                                 
-                                                            className='form-control mr-1'
-                                                            {...register(`ingredients.${index}.quantityType`)}
-                                                         
-                                                        />
-                                                    </div>
 
-                                                </div>
-                                                <div>
-                                                    <div className='form-group'>
-                                                        {index === 0 && <label className="" htmlFor='ingredients-qtyUnit'>Ingredient</label>}
-                                                        <input
+                                                    {index === fields.length - 1 &&
+                                                        <div>
+                                                            {index === 0 && <label></label>}
+                                                            <div
+                                                                className="add-ingredient-button flex justify-center items-center "
+                                                                onClick={() => append({
+                                                                    ingredients: {
+                                                                        quantity: '',
+                                                                        quantityType: '',
+                                                                        ingredient: ''
+                                                                    }
+                                                                })}
+                                                            >
 
-                                                            type='text'
-                                                            placeholder='Durian'
-                                                            className='form-control mr-1 '
-                                                            {...register(`ingredients.${index}.ingredient`)}
-                                                        />
-                                                    </div>
+                                                                < FontAwesomeIcon icon="fa-solid fa-plus" style={{ color: "#94A3B8", }} />
+                                                                <p className="ml-2 text-slate-400">Add Ingredient</p>
+                                                            </div>
+
+                                                        </div>
+                                                    }
+
 
                                                 </div>
-                                                <div>
-                                                    {index === 0 && <label>no</label>}
-                                                    <div
-                                                        className="add-ingredient-button flex justify-center items-center"
-                                                        onClick={() => append({ingredients: {
-                                                            quantity: '',
-                                                            quantityType: '',
-                                                            ingredient: ''
-                                                        }})}
-                                                    >
-
-                                                        < FontAwesomeIcon icon="fa-solid fa-plus" style={{ color: "#5e5e5e", }} />
-                                                    </div>
-
-                                                </div>
-
-
-                                            </div>
                                             )
 
                                         })
@@ -298,7 +294,7 @@ const CreateRecipe = props => {
                                                 {...register("prepTime.time")}
                                             />
                                         </div>
-                                        <div className='form-group'>
+                                        <div className='form-group ml-2'>
                                             <input
                                                 type='text'
                                                 placeholder='time unit'
@@ -313,7 +309,7 @@ const CreateRecipe = props => {
 
                                 </div>
 
-                                <label htmlFor="recipe-type">Type</label>
+                                <label htmlFor="recipe-type">Category</label>
 
                                 <div controlId="types">
 
@@ -325,7 +321,7 @@ const CreateRecipe = props => {
                                             <input
                                                 type="checkbox"
                                                 value="sauce"
-                                                {...register("type", {
+                                                {...register("category", {
                                                     required: "Please select at-least one skill"
                                                 })} />
                                             <span>sauce</span>
@@ -334,12 +330,12 @@ const CreateRecipe = props => {
                                             <input
                                                 type="checkbox"
                                                 value="cake"
-                                                {...register("type")}
+                                                {...register("category")}
                                             />
                                             <span>cake</span></label>
                                         <label>
                                             <input type="checkbox" value="sweets"
-                                                {...register("type")}
+                                                {...register("category")}
                                             />
                                             <span>sweets</span>
                                         </label>
@@ -347,7 +343,7 @@ const CreateRecipe = props => {
                                             <input
                                                 type="checkbox"
                                                 value="drinks"
-                                                {...register("type",)}
+                                                {...register("category",)}
                                             />
                                             <span>drinks</span>
                                         </label>
@@ -379,6 +375,7 @@ const CreateRecipe = props => {
 
                                 <input
                                     type='submit'
+                                    disabled={isSubmitting}
                                     className='btn btn-outline-warning btn-block mt-4 submit'
                                 />
 
