@@ -24,12 +24,12 @@ export default function Recipes({ category }) {
   
 
  
-
+//need to check if item.category includes a value
 
   useEffect(() => {
     category && setfilteredRecipes(
       recipe.filter(item =>
-        item.category === category)
+        item.category.some(type => type === category))
     )
   }, [recipe, category])
 

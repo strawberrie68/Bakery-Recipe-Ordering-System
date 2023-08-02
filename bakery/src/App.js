@@ -11,6 +11,7 @@ import Cart from './Pages/Cart'
 import Main from './Pages/Main'
 import Details from './Pages/RecipeDetails'
 import CreateRecipe2 from './Pages/CreateRecipe2';
+import Supplier from './Pages/Supplier';
 
 import {
   BrowserRouter as Router,
@@ -29,11 +30,12 @@ function App() {
 
         <Routes>
           <Route exact path="/" element={<Main />} />
-          {/* <Route path="/recipe" element={<Details />} /> */}
+
           <Route path="/recipe/:category" element={<Main />} />
           <Route path="/recipe/detail/:id" element={<Details />} />
           <Route path="/cart" element={<Cart />} />
           <Route path="/create-recipe" element={<CreateRecipe2 />} />
+          <Route path="/supplier" element={<Supplier />} />
           
 
         </Routes>
