@@ -8,10 +8,10 @@ const supplierSchema = new Schema({
         type: String,
         required: true,
     },
-    size: [{
+    size: {
         quantity: {type: Number, required: false},
         quantityType: {type: String, required: false},
-    }],
+    },
     price: {
         type: String,
         required: true,

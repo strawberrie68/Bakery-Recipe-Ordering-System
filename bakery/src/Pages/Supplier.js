@@ -4,6 +4,11 @@ import { useForm, useFieldArray } from "react-hook-form"
 import axios from 'axios'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
+
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
+
 export default function Supplier() {
 
 
@@ -49,8 +54,45 @@ export default function Supplier() {
             });
     }, [supplier?.length]);
 
-    console.log(supplier)
+    const onSubmit = async (data) => {
+        // event.preventDefault();
+        console.log(data)
 
+
+        // try{
+        //     const saved = await axios.post(`${process.env.REACT_APP_SERVER_URL}/supplier/add`, data)
+
+        //     toast('Supplier Item Added', {
+        //         position: "top-right",
+        //         autoClose: 2000,
+        //         hideProgressBar: true,
+        //         closeOnClick: true,
+        //         pauseOnHover: true,
+        //         draggable: true,
+        //         progress: undefined,
+        //         theme: "light",
+        //     });
+
+        // }catch(err) {
+        //     console.log(err)
+
+        //     toast.error('Ingredient was not added', {
+        //         position: "top-right",
+        //         autoClose: 2000,
+        //         hideProgressBar: true,
+        //         closeOnClick: true,
+        //         pauseOnHover: true,
+        //         draggable: true,
+        //         progress: undefined,
+        //         theme: "light",
+        //     });
+        // }
+
+
+
+
+    };
+    console.log(supplier)
 
     return (
         <div className=''>
@@ -73,7 +115,7 @@ export default function Supplier() {
                         {supplier &&
 
                             supplier.map((item, i) => (
-                                <div className="supplier-item mt-5 text-sm">
+                                <div key={i}className="supplier-item mt-5 text-sm">
 
 
                                     <div>
@@ -84,6 +126,7 @@ export default function Supplier() {
 
 
                                     <p> $ {item.price}</p>
+                                    
 
 
                                     <p>{item.size.quantity} {item.size.quantityType === "gram" || item.size.quantityType === "grams" ? 'g' : ''} </p>
@@ -98,77 +141,107 @@ export default function Supplier() {
 
                     </div>
 
-                    <div>
-                        <form noValidate onSubmit={handleSubmit(onSubmit)}>
-                            <div>
-                                <div className='form-group mb-3'>
-                                    <input
-                                        type='text'
-                                        name="ingredient"
-                                        className='form-control mt-1'
-                                        {...register("ingredient", {
-                                            required: {
-                                                value: true,
-                                                message: "Ingredient Name is required"
-                                            },
-                                        })}
-                                    />
+                    <div className="supplier-form ml-3">
+                        <p className="mt-6 text-lg font-worksans">Add to Supplier Database</p>
+                        <form className="" noValidate onSubmit={handleSubmit(onSubmit)}>
+                            <div className="supplier-form-top">
+
+                                <div className="">
+                                    <div className='form-group mb-3 flex flex-col'>
+                                        <label htmlFor="recipeTitle">Ingredient</label>
+                                        <input
+                                            type='text'
+                                            name="ingredient"
+                                            className='form-control mt-1'
+                                            placeholder="ingredeint"
+                                            {...register("ingredient", {
+                                                required: {
+                                                    value: true,
+                                                    message: "Ingredient Name is required"
+                                                },
+                                            })}
+                                        />
+                                    </div>
+                                    <p>{errors.ingredient?.message}</p>
+
+                                    <div className='form-group mb-3 flex flex-col'>
+                                        <label htmlFor="recipeTitle">Category</label>
+                                        <input
+                                            type='text'
+                                            name="category"
+                                            className='form-control mt-1'
+                                            placeholder="category"
+                                            {...register("category", {
+                                                required: {
+                                                    value: true,
+                                                    message: "Category is required"
+                                                },
+                                            })}
+                                        />
+                                    </div>
+                                    <p>{errors.category?.message}</p>
+
                                 </div>
-                                <p>{errors.ingredient?.message}</p>
 
-                                <div className='form-group mb-3'>
-                                    <input
-                                        type='text'
-                                        name="category"
-                                        className='form-control mt-1'
-                                        {...register("category", {
-                                            required: {
-                                                value: true,
-                                                message: "Category is required"
-                                            },
-                                        })}
-                                    />
+                                <div>
+
+                                    <div className='form-group mb-3'>
+                                        <label htmlFor="recipeTitle">Price</label>
+                                        <input
+                                            type='text'
+                                            name="price"
+                                            className='form-control mt-1'
+                                            {...register("price", {
+                                                required: {
+                                                    value: true,
+                                                    message: "Price is required"
+                                                },
+                                            })}
+                                        />
+                                    </div>
+                                    <p>{errors.price?.message}</p>
                                 </div>
-                                <p>{errors.category?.message}</p>
 
-                            </div>
+                                <div className="">
+                                    <div className='form-group mb-3'>
+                                        <label htmlFor="recipeTitle">Qty</label>
+                                        <input
+                                            type='text'
+                                            name="quantity"
+                                            className='form-control mt-1'
+                                            placeholder="500"
+                                            {...register("size.quantity", {
+                                                required: {
+                                                    value: true,
+                                                    message: "# quantity is required"
+                                                },
+                                            })}
+                                        />
+                                        <label htmlFor="recipeTitle">Unit</label>
+                                        <input
+                                            type='text'
+                                            name="quantityType"
+                                            className='form-control mt-1'
+                                            placeholder="gram"
+                                            {...register("size.quantityType", {
+                                                required: {
+                                                    value: true,
+                                                    message: "Quantity Type is required"
+                                                },
+                                            })}
+                                        />
 
-                            <div>
+                                    </div>
+                                    <p>{errors.price?.message}</p>
 
-                                <div className='form-group mb-3'>
-                                    <input
-                                        type='text'
-                                        name="price"
-                                        className='form-control mt-1'
-                                        {...register("price", {
-                                            required: {
-                                                value: true,
-                                                message: "Price is required"
-                                            },
-                                        })}
-                                    />
                                 </div>
-                                <p>{errors.price?.message}</p>
                             </div>
+                            <input
+                                type='submit'
+                                disabled={isSubmitting}
+                                className='btn btn-outline-warning btn-block mt-4 submit'
+                            />
 
-                            <div>
-                            <div className='form-group mb-3'>
-                                <input
-                                    type='text'
-                                    name="quantity"
-                                    className='form-control mt-1'
-                                    {...register("size.quantity", {
-                                        required: {
-                                            value: true,
-                                            message: "# quantity is required"
-                                        },
-                                    })}
-                                />
-                                
-                            </div>
-                            <p>{errors.price?.message}</p>
-
-                            </div>
 
 
                         </form>
@@ -190,7 +263,18 @@ export default function Supplier() {
                 </div>
 
             </div>
-
+            <ToastContainer
+                position="top-right"
+                autoClose={2000}
+                hideProgressBar
+                newestOnTop
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme="light"
+            />
 
 
 
