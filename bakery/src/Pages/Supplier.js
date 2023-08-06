@@ -26,10 +26,10 @@ export default function Supplier() {
     } = useForm({
         defaultValues: {
             ingredient: '',
-            size: [{
+            size: {
                 quantity: '',
                 quantityType: '',
-            }],
+            },
             price: '',
             category: '',
         }
@@ -57,6 +57,8 @@ export default function Supplier() {
                 console.log('Error from Supplier' + err);
             });
     }, [supplier?.length]);
+
+    console.log(supplier)
 
     const onSubmit = async (data) => {
         // event.preventDefault();
@@ -133,7 +135,7 @@ export default function Supplier() {
 
 
 
-                                    <p>{item.size.quantity} {item.size.quantityType === "gram" || item.size.quantityType === "grams" ? 'g' : ''} </p>
+                                    <p>{item.size[0].quantity} {item.size[0].quantityType === "gram" || item.size[0].quantityType === "grams" ? 'g' : ''} </p>
 
 
                                 </div>
