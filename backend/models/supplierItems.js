@@ -13,7 +13,7 @@ const supplierSchema = new Schema({
         quantityType: {type: String, required: false},
     },
     price: {
-        type: String,
+        type: Number,
         required: true,
     },
     category: {

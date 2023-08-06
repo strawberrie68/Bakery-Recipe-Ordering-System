@@ -9,6 +9,8 @@ import axios from 'axios'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
+import { DevTool } from "@hookform/devtools"
+
 
 
 
@@ -135,7 +137,8 @@ export default function Supplier() {
 
 
 
-                                    <p>{item.size[0].quantity} {item.size[0].quantityType === "gram" || item.size[0].quantityType === "grams" ? 'g' : ''} </p>
+                                    { item.size.quantity && 
+                                    <p>{item.size.quantity} {item.size.quantityType === "gram" || item.size.quantityType === "grams" ? 'g' : ''} </p>}
 
 
                                 </div>
@@ -179,7 +182,7 @@ export default function Supplier() {
                                         <div className='form-group'>
                                             <label htmlFor="recipeTitle">Price</label>
                                             <input
-                                                type='text'
+                                                type='number'
                                                 name="price"
                                                 className='form-control'
                                                 {...register("price", {
@@ -267,6 +270,7 @@ export default function Supplier() {
 
 
                         </form>
+                        <DevTool control={control} />
                     </div>
 
 
