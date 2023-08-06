@@ -47,6 +47,7 @@ export default function Supplier() {
     }, [isSubmitSuccessful, reset])
 
     const [supplier, setSupplier] = useState()
+    const lengthOfSupplier = supplier && supplier.length
 
     useEffect(() => {
         axios
@@ -58,43 +59,44 @@ export default function Supplier() {
             .catch((err) => {
                 console.log('Error from Supplier' + err);
             });
-    }, [supplier?.length]);
+    }, [isSubmitSuccessful]);
 
-    console.log(supplier)
+
+
 
     const onSubmit = async (data) => {
         // event.preventDefault();
         console.log(data)
 
 
-        // try{
-        //     const saved = await axios.post(`${process.env.REACT_APP_SERVER_URL}/supplier/add`, data)
+        try{
+            const saved = await axios.post(`${process.env.REACT_APP_SERVER_URL}/supplier/add`, data)
 
-        //     toast('Supplier Item Added', {
-        //         position: "top-right",
-        //         autoClose: 2000,
-        //         hideProgressBar: true,
-        //         closeOnClick: true,
-        //         pauseOnHover: true,
-        //         draggable: true,
-        //         progress: undefined,
-        //         theme: "light",
-        //     });
+            toast('Supplier Item Added', {
+                position: "top-right",
+                autoClose: 2000,
+                hideProgressBar: true,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+            });
 
-        // }catch(err) {
-        //     console.log(err)
+        }catch(err) {
+            console.log(err)
 
-        //     toast.error('Ingredient was not added', {
-        //         position: "top-right",
-        //         autoClose: 2000,
-        //         hideProgressBar: true,
-        //         closeOnClick: true,
-        //         pauseOnHover: true,
-        //         draggable: true,
-        //         progress: undefined,
-        //         theme: "light",
-        //     });
-        // }
+            toast.error('Ingredient was not added', {
+                position: "top-right",
+                autoClose: 2000,
+                hideProgressBar: true,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+            });
+        }
 
 
 
@@ -184,6 +186,7 @@ export default function Supplier() {
                                             <input
                                                 type='number'
                                                 name="price"
+                                                placeholder="$25"
                                                 className='form-control'
                                                 {...register("price", {
                                                     required: {
