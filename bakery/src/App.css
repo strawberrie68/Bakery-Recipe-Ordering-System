@@ -207,11 +207,14 @@
 
 .main-body-main{
   display: block;
-  padding-top: 4em;
-  padding-left:5em;
+  padding-top: 2em;
+  margin-top: 4em;
+  padding-left: 5em;
   max-width: 900px;
-  width:90%;
-  margin-right: 2em;;
+  width: 90%;
+  margin-right: 2em;
+  overflow: overlay;
+  height: 100%
 
 }
 
@@ -695,6 +698,7 @@
   border-radius: 10px;
   height:40px;
   padding:5px;
+  width: 100%;
   
   
 
@@ -712,6 +716,18 @@
 
 .supplier-form-top{
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: 1fr .5fr .5fr .25fr;
   column-gap: 1em;
+  width: 100%;
+  max-width: 900px;
+}
+
+.submit-supplier{
+  background-color: black;
+  color:white
+}
+
+.submit-supplierL:hover{
+  background-color: white;
+  color:black;
 }

@@ -132,7 +132,7 @@ export default function RecipeDetails() {
                                 placeholder='1.5x'
                                 onChange={(e) => setMultiplier(e.target.value)}
                                 min="1"
-                                oninput="validity.valid||(value='');"
+                                onInput="validity.valid||(value='');"
                                 className='text-3xl mt-1 font-worksans'
                             />
 

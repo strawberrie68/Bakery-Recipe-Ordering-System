@@ -2,11 +2,15 @@ import React, { useEffect, useState } from "react"
 import NavSide from "../components/NavBarSide"
 import { useForm, useFieldArray } from "react-hook-form"
 import axios from 'axios'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+
+
 
 
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+
+
+
 
 
 export default function Supplier() {
@@ -92,7 +96,7 @@ export default function Supplier() {
 
 
     };
-    console.log(supplier)
+
 
     return (
         <div className=''>
@@ -101,7 +105,7 @@ export default function Supplier() {
                 <div className='m-8 main-body-main'>
                     <p className='text-3xl font-worksans font-medium ml-2'>Supplier page</p>
 
-                    <div className="supplier-container mt-6 text-slate-400">
+                    <div className="supplier-container mt-6 text-slate-400 mb-1">
 
                         <p>Ingredient </p>
                         <p>Price </p>
@@ -115,7 +119,7 @@ export default function Supplier() {
                         {supplier &&
 
                             supplier.map((item, i) => (
-                                <div key={i}className="supplier-item mt-5 text-sm">
+                                <div key={i} className="supplier-item mt-5 text-sm">
 
 
                                     <div>
@@ -126,7 +130,7 @@ export default function Supplier() {
 
 
                                     <p> $ {item.price}</p>
-                                    
+
 
 
                                     <p>{item.size.quantity} {item.size.quantityType === "gram" || item.size.quantityType === "grams" ? 'g' : ''} </p>
@@ -144,25 +148,91 @@ export default function Supplier() {
                     <div className="supplier-form ml-3">
                         <p className="mt-6 text-lg font-worksans">Add to Supplier Database</p>
                         <form className="" noValidate onSubmit={handleSubmit(onSubmit)}>
-                            <div className="supplier-form-top">
+                            <div className="">
+                                <div className="supplier-form-top mb-3 mt-3">
+                                    <div className="">
+                                        <div className='form-group flex flex-col mt-1'>
+                                            <label htmlFor="recipeTitle">Ingredient</label>
+                                            <input
+                                                type='text'
+                                                name="ingredient"
+                                                className='form-control'
+                                                placeholder="ingredeint"
+                                                {...register("ingredient", {
+                                                    required: {
+                                                        value: true,
+                                                        message: "Ingredient Name is required"
+                                                    },
+                                                })}
+                                            />
+                                        </div>
+                                        <p className="text-xs m-1">{errors.ingredient?.message}</p>
 
-                                <div className="">
-                                    <div className='form-group mb-3 flex flex-col'>
-                                        <label htmlFor="recipeTitle">Ingredient</label>
+
+
+                                    </div>
+
+                                    <div>
+
+                                        <div className='form-group'>
+                                            <label htmlFor="recipeTitle">Price</label>
+                                            <input
+                                                type='text'
+                                                name="price"
+                                                className='form-control'
+                                                {...register("price", {
+                                                    required: {
+                                                        value: true,
+                                                        message: "Price is required"
+                                                    },
+                                                })}
+                                            />
+                                        </div>
+                                        <p className="text-xs m-1">{errors.price?.message}</p>
+                                    </div>
+
+
+                                    <div className='form-group '>
+                                        <label htmlFor="recipeTitle">Qty</label>
                                         <input
-                                            type='text'
-                                            name="ingredient"
-                                            className='form-control mt-1'
-                                            placeholder="ingredeint"
-                                            {...register("ingredient", {
+                                            type='number'
+                                            name="quantity"
+                                            className='form-control'
+                                            placeholder="500"
+                                            {...register("size.quantity", {
                                                 required: {
                                                     value: true,
-                                                    message: "Ingredient Name is required"
+                                                    message: "# quantity is required"
                                                 },
                                             })}
                                         />
+                                        <p className="text-xs m-1">{errors.size?.quantity?.message}</p>
+
+
                                     </div>
-                                    <p>{errors.ingredient?.message}</p>
+
+                                    <div>
+                                        <label htmlFor="recipeTitle">Unit</label>
+                                        <input
+                                            type='text'
+                                            name="quantityType"
+                                            className='form-control'
+                                            placeholder="gram"
+                                            {...register("size.quantityType", {
+                                                required: {
+                                                    value: true,
+                                                    message: "Qty Type is required"
+                                                },
+                                            })}
+                                        />
+                                        <p className="text-xs m-1">{errors.size?.quantityType?.message}</p>
+                                    </div>
+
+                                </div>
+
+
+
+                                <div>
 
                                     <div className='form-group mb-3 flex flex-col'>
                                         <label htmlFor="recipeTitle">Category</label>
@@ -179,67 +249,17 @@ export default function Supplier() {
                                             })}
                                         />
                                     </div>
-                                    <p>{errors.category?.message}</p>
-
+                                    <p className="text-xs m-1">{errors.category?.message}</p>
                                 </div>
 
-                                <div>
 
-                                    <div className='form-group mb-3'>
-                                        <label htmlFor="recipeTitle">Price</label>
-                                        <input
-                                            type='text'
-                                            name="price"
-                                            className='form-control mt-1'
-                                            {...register("price", {
-                                                required: {
-                                                    value: true,
-                                                    message: "Price is required"
-                                                },
-                                            })}
-                                        />
-                                    </div>
-                                    <p>{errors.price?.message}</p>
-                                </div>
 
-                                <div className="">
-                                    <div className='form-group mb-3'>
-                                        <label htmlFor="recipeTitle">Qty</label>
-                                        <input
-                                            type='text'
-                                            name="quantity"
-                                            className='form-control mt-1'
-                                            placeholder="500"
-                                            {...register("size.quantity", {
-                                                required: {
-                                                    value: true,
-                                                    message: "# quantity is required"
-                                                },
-                                            })}
-                                        />
-                                        <label htmlFor="recipeTitle">Unit</label>
-                                        <input
-                                            type='text'
-                                            name="quantityType"
-                                            className='form-control mt-1'
-                                            placeholder="gram"
-                                            {...register("size.quantityType", {
-                                                required: {
-                                                    value: true,
-                                                    message: "Quantity Type is required"
-                                                },
-                                            })}
-                                        />
-
-                                    </div>
-                                    <p>{errors.price?.message}</p>
-
-                                </div>
                             </div>
                             <input
+
                                 type='submit'
                                 disabled={isSubmitting}
-                                className='btn btn-outline-warning btn-block mt-4 submit'
+                                className='btn btn-outline-warning btn-block mt-4 submit submit-supplier'
                             />
 
 
@@ -256,13 +276,7 @@ export default function Supplier() {
             </div>
 
 
-            <div className="corner-add flex flex-col justify-center" >
-                <input type="button" value="Add to Supplier" className='bg-grey p-2 text-slate-400 text-xs' />
-                <div className='circle-button flex justify-center items-center	'>
-                    <FontAwesomeIcon icon="fa-solid fa-plus" style={{ color: "#ffffff", }} />
-                </div>
 
-            </div>
             <ToastContainer
                 position="top-right"
                 autoClose={2000}
