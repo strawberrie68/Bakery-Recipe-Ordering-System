@@ -203,6 +203,10 @@
 
 }
 
+/* .main-body-cart{
+  padding-top: 6em;
+  padding-left: 2em;
+} */
 
 
 .main-body-main{
@@ -229,6 +233,11 @@
   margin: auto;
   padding: 1em;
   
+}
+
+.cart-body {
+  padding-top: 6em;
+  padding-left: 2em;
 }
 
 .cart-item {

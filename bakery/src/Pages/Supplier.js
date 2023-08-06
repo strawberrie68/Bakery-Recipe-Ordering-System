@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react"
 import NavSide from "../components/NavBarSide"
-import { useForm, useFieldArray } from "react-hook-form"
+import { useForm } from "react-hook-form"
 import axios from 'axios'
 
 
@@ -9,7 +9,7 @@ import axios from 'axios'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-import { DevTool } from "@hookform/devtools"
+
 
 
 
@@ -18,10 +18,9 @@ import { DevTool } from "@hookform/devtools"
 export default function Supplier() {
 
 
-    const form = useForm();
+   
     const {
         register,
-        control,
         handleSubmit,
         formState,
         reset,
@@ -38,7 +37,7 @@ export default function Supplier() {
 
     })
 
-    const { errors, isSubmitting, isSubmitted, isSubmitSuccessful } = formState
+    const { errors, isSubmitting,isSubmitSuccessful } = formState
 
     useEffect(() => {
         if (isSubmitSuccessful) {
@@ -47,7 +46,7 @@ export default function Supplier() {
     }, [isSubmitSuccessful, reset])
 
     const [supplier, setSupplier] = useState()
-    const lengthOfSupplier = supplier && supplier.length
+   
 
     useEffect(() => {
         axios
@@ -70,7 +69,7 @@ export default function Supplier() {
 
 
         try{
-            const saved = await axios.post(`${process.env.REACT_APP_SERVER_URL}/supplier/add`, data)
+            await axios.post(`${process.env.REACT_APP_SERVER_URL}/supplier/add`, data)
 
             toast('Supplier Item Added', {
                 position: "top-right",
@@ -273,7 +272,7 @@ export default function Supplier() {
 
 
                         </form>
-                        <DevTool control={control} />
+                        
                     </div>
 
 

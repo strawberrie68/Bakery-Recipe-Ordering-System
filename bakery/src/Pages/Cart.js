@@ -67,7 +67,7 @@ export default function Cart() {
             <div className='main-content flex flex-row'>
                 <NavSide />
 
-                <div className='main-body'>
+                <div className='main-body cart-body'>
                     <div className="pr-3">
                         <div className="flex align-middle items-center	mb-12	">
                             <FontAwesomeIcon icon="fa-solid fa-cart-shopping" size="s" />
