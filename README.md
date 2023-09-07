@@ -40,11 +40,11 @@ In this project, I learned some hard things are worth doing.
 
 In this case, redux.  
 
-I'm not gonna lie...adding redux seemed like a daunting task. With the amount of boilerplate, it seemed intimidating. 
+I'm not going to lie...adding redux seemed like a daunting task. With the amount of boilerplate, it seemed intimidating. 
 
 I thought it would be super hard to add to a project but with the help of the redux tool kit, it was surprisingly easy. 
 
-It makes it so much easier to grab information from one location without prop drilling (which can be painful). In the end struggling and with hard things can be worth it in the end. 
+It makes it so much easier to grab information from one location without prop drilling (which can be painful). In the end, struggling and with hard things can be worth it in the future. 
 
 
 ## 👩‍💻 To try the project
@@ -60,7 +60,7 @@ npm start
 Frontend
 in the .env file
 ```
-replace "REACT_APP_SERVER_URL" with backend link ie https://localhost:3000/
+replace "REACT_APP_SERVER_URL" with the backend link ie https://localhost:3000/
 npm install 
 npm start
 ```
