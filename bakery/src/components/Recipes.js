@@ -1,60 +1,48 @@
-import React, { useState, useEffect } from "react"
-import axios from "axios"
-import RecipeCard from "./RecipeCard"
-import AddRecipeBox from "./AddRecipeBox"
-import { Link } from 'react-router-dom';
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import RecipeCard from "./RecipeCard";
+import AddRecipeBox from "./AddRecipeBox";
+import { Link } from "react-router-dom";
 
 export default function Recipes({ category }) {
-
-  const [recipe, setRecipe] = useState([])
-  const [filteredRecipes, setfilteredRecipes] = useState([])
+  const [recipe, setRecipe] = useState([]);
+  const [filteredRecipes, setfilteredRecipes] = useState([]);
 
   useEffect(() => {
     const getRecipe = async () => {
       try {
         const res = await axios.get(
+          `${process.env.REACT_APP_SERVER_URL}/recipe`
+        );
+        setRecipe(res.data);
+      } catch (err) {}
+    };
+    getRecipe();
+  }, [category]);
 
-          `${process.env.REACT_APP_SERVER_URL}/recipe`)
-        setRecipe(res.data)
-      } catch (err) { }
-
-    }
-    getRecipe()
-  }, [category])
-  
-
- 
-//need to check if item.category includes a value
+  //need to check if item.category includes a value
 
   useEffect(() => {
-    category && setfilteredRecipes(
-      recipe.filter(item =>
-        item.category.some(type => type === category))
-    )
-  }, [recipe, category])
+    category &&
+      setfilteredRecipes(
+        recipe.filter((item) => item.category.some((type) => type === category))
+      );
+  }, [recipe, category]);
 
-
-  const recipeList =
-    !category ? recipe.map((food, k) => <RecipeCard food={food} key={k} />)
-      : filteredRecipes.length === 0
-        ? 'no recipes' :
-        filteredRecipes.map((food, k) => <RecipeCard food={food} key={k} />)
-
-
+  const recipeList = !category
+    ? recipe.map((food, k) => <RecipeCard food={food} key={k} />)
+    : filteredRecipes.length === 0
+    ? "no recipes"
+    : filteredRecipes.map((food, k) => <RecipeCard food={food} key={k} />);
 
   return (
     <div className="">
-
       <div className="recipe-container flex">
         {recipeList}
         <Link to="/create-recipe">
-            <AddRecipeBox />
+          <AddRecipeBox />
         </Link>
-       
       </div>
-
     </div>
-  )
-
-
+  );
 }

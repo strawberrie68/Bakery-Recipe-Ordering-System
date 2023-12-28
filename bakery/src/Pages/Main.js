@@ -1,34 +1,23 @@
-import React from 'react'
+import React from "react";
 import { useLocation } from "react-router-dom";
-import Recipes from "../components/Recipes"
-import NavSide from "../components/NavBarSide"
-
-
+import Recipes from "../components/Recipes";
+import NavSide from "../components/NavBarSide";
 
 export default function Main() {
   const location = useLocation();
-  const category = location.pathname.split("/")[2]
-  
+  const category = location.pathname.split("/")[2];
 
   return (
-    <div className=''>
-      <div className='main-content flex'>
+    <div className="">
+      <div className="main-content flex">
         <NavSide />
-        <div className='m-8 main-body-main'>
-          <p className='text-4xl font-worksans font-medium	ml-2'>Recipes</p>
+        <div className="m-8 main-body-main">
+          <p className="text-4xl font-worksans font-medium	ml-2">Recipes</p>
           <div>
             <Recipes category={category} />
-   
           </div>
-         
-
         </div>
-
-
       </div>
-
-
-
     </div>
-  )
+  );
 }
